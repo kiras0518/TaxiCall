@@ -10,27 +10,41 @@ import UIKit
 import MapKit
 import CoreLocation
 import FirebaseAuth
+import FirebaseDatabase
 
 class RiderViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     let locationManger = CLLocationManager()
     var HasBeenCalled = false
+    var userLocation = CLLocationCoordinate2D()
+    let reference : DatabaseReference = Database.database().reference()
+    
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var buttonCall: UIButton!
     
     @IBAction func callTaxi(_ sender: UIButton) {
         
+        if let email = Auth.auth().currentUser?.email {
         if HasBeenCalled {
+            
+            reference.child("RiderRequests").queryOrdered(byChild: "email").queryEqual(toValue: email).observe(DataEventType.childAdded) { (dataSnapShot) in
+                dataSnapShot.ref.removeValue()
+                self.reference.child("RiderRequests").removeAllObservers()
+            }
             
             cancelTaixMode()
            
         } else {
             
+            let riderRequestDic : [String : Any] = ["email": email, "latitude": userLocation.latitude, "longitude": userLocation.longitude]
+            
+            reference.child("RiderRequests").childByAutoId().setValue(riderRequestDic)
+            
             callTaixMode()
             
         }
-        
+      }
     }
 
     @IBAction func logOut(_ sender: UIBarButtonItem) {
@@ -85,6 +99,7 @@ class RiderViewController: UIViewController, MKMapViewDelegate, CLLocationManage
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         if let cooridnate : CLLocationCoordinate2D = manager.location?.coordinate {
+            
             
             let region = MKCoordinateRegion(center: cooridnate, span: MKCoordinateSpan(latitudeDelta: 0.018, longitudeDelta: 0.018))
             

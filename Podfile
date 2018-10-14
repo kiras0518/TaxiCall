@@ -8,4 +8,5 @@ target 'TaxiCall' do
   # Pods for TaxiCall
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Database'
 end
