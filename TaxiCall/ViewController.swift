@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ViewController: UIViewController {
 
@@ -18,8 +19,71 @@ class ViewController: UIViewController {
    
     
     @IBAction func signInButton(_ sender: UIButton) {
+        
+        if email.text != "" && password.text != "" {
+            
+            authService(mail: email.text!, pwd: password.text!)
+            
+        } else {
+            
+            print("Please entry your email and password")
+            displayAlert(title: "登入錯誤", message: "請重新輸入帳號或密碼")
+            
+        }
     }
     
+    func authService(mail: String, pwd: String) {
+        
+        Auth.auth().signIn(withEmail: mail, password: pwd) { (user, error) in
+            
+            if error != nil {
+                
+                //得到user_not_foound 判斷用戶不存在
+                //print((error as! NSError).userInfo["error_name"]!)
+                print(error)
+                
+                let errorString = String(describing: (error as! NSError).userInfo["error_name"]!)
+                
+                if errorString == "ERROR_USER_NOT_FOUND" {
+                    
+                    Auth.auth().createUser(withEmail: mail, password: pwd) { (user, error) in
+                        
+                        if error != nil {
+                            
+                            print(error)
+                            self.displayAlert(title: "創建錯誤", message: (error?.localizedDescription)!)
+                        } else {
+                            
+                            print("User created")
+                            
+                        }
+                    }
+                    
+                } else {
+                    
+                    //print(error)
+                    self.displayAlert(title: "登入錯誤", message: (error?.localizedDescription)!)
+                }
+                
+               
+    
+            } else {
+                
+                print("User already sign in")
+                
+            }
+        }
+    
+    }
+    func displayAlert(title: String, message: String) {
+        let alertcontorller = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        let alertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+        
+        alertcontorller.addAction(alertAction)
+        
+        self.present(alertcontorller, animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
