@@ -14,6 +14,8 @@
 		7DFBB9102170D98800FAEE48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DFBB90F2170D98800FAEE48 /* Assets.xcassets */; };
 		7DFBB9132170D98800FAEE48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DFBB9112170D98800FAEE48 /* LaunchScreen.storyboard */; };
 		7DFBB91B2170F63A00FAEE48 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7DFBB91A2170F63A00FAEE48 /* GoogleService-Info.plist */; };
+		7DFBB91D2173A8BC00FAEE48 /* RiderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFBB91C2173A8BC00FAEE48 /* RiderViewController.swift */; };
+		7DFBB91F2173A8DA00FAEE48 /* DriverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFBB91E2173A8D900FAEE48 /* DriverTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		7DFBB9122170D98800FAEE48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7DFBB9142170D98800FAEE48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7DFBB91A2170F63A00FAEE48 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7DFBB91C2173A8BC00FAEE48 /* RiderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderViewController.swift; sourceTree = "<group>"; };
+		7DFBB91E2173A8D900FAEE48 /* DriverTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverTableViewController.swift; sourceTree = "<group>"; };
 		C9B92183F1E154C2AD19BE92 /* Pods_TaxiCall.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaxiCall.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -75,6 +79,8 @@
 				7DFBB9082170D98600FAEE48 /* AppDelegate.swift */,
 				7DFBB90A2170D98600FAEE48 /* ViewController.swift */,
 				7DFBB90C2170D98600FAEE48 /* Main.storyboard */,
+				7DFBB91C2173A8BC00FAEE48 /* RiderViewController.swift */,
+				7DFBB91E2173A8D900FAEE48 /* DriverTableViewController.swift */,
 				7DFBB90F2170D98800FAEE48 /* Assets.xcassets */,
 				7DFBB9112170D98800FAEE48 /* LaunchScreen.storyboard */,
 				7DFBB9142170D98800FAEE48 /* Info.plist */,
@@ -217,6 +223,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DFBB90B2170D98600FAEE48 /* ViewController.swift in Sources */,
+				7DFBB91F2173A8DA00FAEE48 /* DriverTableViewController.swift in Sources */,
+				7DFBB91D2173A8BC00FAEE48 /* RiderViewController.swift in Sources */,
 				7DFBB9092170D98600FAEE48 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

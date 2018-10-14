@@ -54,7 +54,24 @@ class ViewController: UIViewController {
                             self.displayAlert(title: "創建錯誤", message: (error?.localizedDescription)!)
                         } else {
                             
-                            print("User created")
+                            //print("User created")
+                            if self.userModelSwitch.isOn {
+                                
+                                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                                changeRequest?.displayName = "Rider"
+                                changeRequest?.commitChanges(completion: nil)
+                                
+                                self.performSegue(withIdentifier: "riderSegue", sender: self)
+                                
+                            } else {
+                                
+                                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                                changeRequest?.displayName = "Dirver"
+                                changeRequest?.commitChanges(completion: nil)
+                                
+                                self.performSegue(withIdentifier: "driverSegue", sender: self)
+                                
+                            }
                             
                         }
                     }
@@ -65,12 +82,15 @@ class ViewController: UIViewController {
                     self.displayAlert(title: "登入錯誤", message: (error?.localizedDescription)!)
                 }
                 
-               
-    
             } else {
                 
                 print("User already sign in")
                 
+                if user?.user.displayName == "Rider" {
+                    self.performSegue(withIdentifier: "riderSegue", sender: self)
+                } else {
+                    self.performSegue(withIdentifier: "driverSegue", sender: self)
+                }
             }
         }
     
