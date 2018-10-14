@@ -7,24 +7,52 @@
 //
 
 import UIKit
+import MapKit
+import CoreLocation
 
-class RiderViewController: UIViewController {
+class RiderViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
+    let locationManger = CLLocationManager()
+    
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var buttonCall: UIButton!
+    
+    @IBAction func callTaxi(_ sender: UIButton) {
+    }
+    @IBAction func logOut(_ sender: Any) {
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        mapView.delegate = self
+        locationManger.delegate = self
+        
+        locationManger.desiredAccuracy = kCLLocationAccuracyBest
+        
+        if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.notDetermined {
+            locationManger.requestAlwaysAuthorization()
+        }
+        locationManger.startUpdatingLocation()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        if let cooridnate : CLLocationCoordinate2D = manager.location?.coordinate {
+            
+            let region = MKCoordinateRegion(center: cooridnate, span: MKCoordinateSpan(latitudeDelta: 0.018, longitudeDelta: 0.018))
+            
+            mapView.setRegion(region, animated: true)
+            
+            mapView.removeAnnotations(mapView.annotations)
+            
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = cooridnate
+            annotation.title = "My Location"
+            mapView.addAnnotation(annotation)
+            
+        }
     }
-    */
+   
 
 }

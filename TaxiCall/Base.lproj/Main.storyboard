@@ -163,10 +163,45 @@
                     <view key="view" contentMode="scaleToFill" id="e6J-bD-9LG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="P6H-HR-WXa">
+                                <rect key="frame" x="0.0" y="64" width="414" height="600"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="McX-UL-xgm">
+                                <rect key="frame" x="0.0" y="664" width="414" height="72"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="呼叫">
+                                    <color key="titleColor" red="1" green="0.98624406389999997" blue="0.9993811064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="callTaxi:" destination="J1z-hM-Axe" eventType="touchUpInside" id="F0Z-hL-ZDB"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="McX-UL-xgm" firstAttribute="leading" secondItem="ZsE-F0-cy1" secondAttribute="leading" id="5UV-cy-AYZ"/>
+                            <constraint firstItem="McX-UL-xgm" firstAttribute="top" secondItem="P6H-HR-WXa" secondAttribute="bottom" id="8co-Tu-XhX"/>
+                            <constraint firstAttribute="bottom" secondItem="McX-UL-xgm" secondAttribute="bottom" id="J56-m7-FEq"/>
+                            <constraint firstItem="P6H-HR-WXa" firstAttribute="leading" secondItem="ZsE-F0-cy1" secondAttribute="leading" id="RSi-94-Rh0"/>
+                            <constraint firstItem="P6H-HR-WXa" firstAttribute="height" secondItem="McX-UL-xgm" secondAttribute="height" multiplier="25:3" id="XL5-mL-92h"/>
+                            <constraint firstItem="P6H-HR-WXa" firstAttribute="trailing" secondItem="ZsE-F0-cy1" secondAttribute="trailing" id="bwc-ZX-m2l"/>
+                            <constraint firstItem="ZsE-F0-cy1" firstAttribute="trailing" secondItem="McX-UL-xgm" secondAttribute="trailing" id="kkT-ds-Que"/>
+                            <constraint firstItem="P6H-HR-WXa" firstAttribute="top" secondItem="ZsE-F0-cy1" secondAttribute="top" id="wRG-0u-spn"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ZsE-F0-cy1"/>
                     </view>
-                    <navigationItem key="navigationItem" id="f79-9u-AAR"/>
+                    <navigationItem key="navigationItem" id="f79-9u-AAR">
+                        <barButtonItem key="leftBarButtonItem" title="Log out" id="FC6-xC-5nM">
+                            <connections>
+                                <action selector="logOut:" destination="J1z-hM-Axe" id="aws-5i-oBb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="buttonCall" destination="McX-UL-xgm" id="RTx-Qw-vAi"/>
+                        <outlet property="mapView" destination="P6H-HR-WXa" id="hvC-OM-6QG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IHa-gD-GvR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
