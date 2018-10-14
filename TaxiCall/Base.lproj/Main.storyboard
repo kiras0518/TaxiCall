@@ -170,6 +170,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="McX-UL-xgm">
                                 <rect key="frame" x="0.0" y="664" width="414" height="72"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
                                 <state key="normal" title="呼叫">
                                     <color key="titleColor" red="1" green="0.98624406389999997" blue="0.9993811064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -194,7 +195,7 @@
                     <navigationItem key="navigationItem" id="f79-9u-AAR">
                         <barButtonItem key="leftBarButtonItem" title="Log out" id="FC6-xC-5nM">
                             <connections>
-                                <action selector="logOut:" destination="J1z-hM-Axe" id="aws-5i-oBb"/>
+                                <action selector="logOut:" destination="J1z-hM-Axe" id="GRQ-wS-8BD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
