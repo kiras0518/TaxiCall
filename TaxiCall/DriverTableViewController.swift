@@ -7,40 +7,70 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class DriverTableViewController: UITableViewController {
 
+    let reference = Database.database().reference()
+    var riderRequestDic : [String : Any] = [:]
+    var riderRequests : [DataSnapshot] = []
+    @IBAction func logOut(_ sender: UIBarButtonItem) {
+        
+        do {
+            
+            try Auth.auth().signOut()
+            navigationController?.dismiss(animated: true, completion: nil)
+            
+        } catch  {
+            
+            print("Driver could not sign out")
+            
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        getRiderData()
     }
 
     // MARK: - Table view data source
+    
+    func getRiderData(){
+        
+        reference.child("RiderRequests").observe(DataEventType.childAdded) { (DataSnapshot) in
+            //print(DataSnapshot.value)
+            if let riderRequestDic = DataSnapshot.value as? [String : Any] {
+                print(riderRequestDic["email"])
+                self.riderRequests.append(DataSnapshot)
+                DataSnapshot.ref.removeAllObservers()
+            }
+            //print(self.riderRequests)
+        }
+        
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 6
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! RiderDataCell
 
         // Configure the cell...
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

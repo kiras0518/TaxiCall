@@ -136,13 +136,51 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="0pd-3c-zUA">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="100" id="0pd-3c-zUA" customClass="RiderDataCell" customModule="TaxiCall" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0pd-3c-zUA" id="CD6-Hl-Saj">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="99.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="jeP-eP-aDB">
+                                            <rect key="frame" x="25" y="10" width="70" height="79.666666666666671"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="70" id="6nm-mS-MXF"/>
+                                            </constraints>
+                                        </imageView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="f59-K8-leR">
+                                            <rect key="frame" x="115" y="19.666666666666668" width="279" height="60.666666666666657"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rider@qq.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcF-3q-CN0">
+                                                    <rect key="frame" x="0.0" y="0.0" width="279" height="29.333333333333332"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rider description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NpC-g8-AB9">
+                                                    <rect key="frame" x="0.0" y="37.333333333333329" width="279" height="23.333333333333329"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="jeP-eP-aDB" firstAttribute="leading" secondItem="CD6-Hl-Saj" secondAttribute="leading" constant="25" id="4Yf-NI-YLB"/>
+                                        <constraint firstAttribute="trailing" secondItem="f59-K8-leR" secondAttribute="trailing" constant="20" id="Bh4-WD-ZKq"/>
+                                        <constraint firstItem="f59-K8-leR" firstAttribute="centerY" secondItem="CD6-Hl-Saj" secondAttribute="centerY" id="E1S-hR-p03"/>
+                                        <constraint firstItem="jeP-eP-aDB" firstAttribute="centerY" secondItem="CD6-Hl-Saj" secondAttribute="centerY" id="JkC-KP-VmA"/>
+                                        <constraint firstItem="f59-K8-leR" firstAttribute="leading" secondItem="jeP-eP-aDB" secondAttribute="trailing" constant="20" id="bI0-Mc-GJ0"/>
+                                        <constraint firstItem="jeP-eP-aDB" firstAttribute="top" secondItem="CD6-Hl-Saj" secondAttribute="top" constant="10" id="ppy-U1-DNS"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dataLable" destination="NpC-g8-AB9" id="096-EO-z2B"/>
+                                    <outlet property="profileImage" destination="jeP-eP-aDB" id="QOl-yd-ZSI"/>
+                                    <outlet property="userEmail" destination="bcF-3q-CN0" id="gVB-h5-txQ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -150,7 +188,13 @@
                             <outlet property="delegate" destination="jwU-LV-6K0" id="7gT-87-lHD"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="NEa-MY-w4h"/>
+                    <navigationItem key="navigationItem" id="NEa-MY-w4h">
+                        <barButtonItem key="leftBarButtonItem" title="Log out" id="I3Y-rP-aRa">
+                            <connections>
+                                <action selector="logOut:" destination="jwU-LV-6K0" id="yXB-Bk-6Ir"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OhC-Sp-C7m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -245,4 +289,7 @@
             <point key="canvasLocation" x="992.75362318840587" y="508.69565217391306"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="user" width="42.470046997070312" height="42.470046997070312"/>
+    </resources>
 </document>
