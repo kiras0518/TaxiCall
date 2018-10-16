@@ -17,6 +17,7 @@
 		7DFBB91D2173A8BC00FAEE48 /* RiderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFBB91C2173A8BC00FAEE48 /* RiderViewController.swift */; };
 		7DFBB91F2173A8DA00FAEE48 /* DriverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFBB91E2173A8D900FAEE48 /* DriverTableViewController.swift */; };
 		7DFBB9272173C8FF00FAEE48 /* RiderDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFBB9262173C8FF00FAEE48 /* RiderDataCell.swift */; };
+		7DFBB9292175E72700FAEE48 /* PickUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFBB9282175E72700FAEE48 /* PickUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		7DFBB91C2173A8BC00FAEE48 /* RiderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderViewController.swift; sourceTree = "<group>"; };
 		7DFBB91E2173A8D900FAEE48 /* DriverTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverTableViewController.swift; sourceTree = "<group>"; };
 		7DFBB9262173C8FF00FAEE48 /* RiderDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderDataCell.swift; sourceTree = "<group>"; };
+		7DFBB9282175E72700FAEE48 /* PickUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickUpViewController.swift; sourceTree = "<group>"; };
 		C9B92183F1E154C2AD19BE92 /* Pods_TaxiCall.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaxiCall.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -82,6 +84,7 @@
 				7DFBB9082170D98600FAEE48 /* AppDelegate.swift */,
 				7DFBB90A2170D98600FAEE48 /* ViewController.swift */,
 				7DFBB90C2170D98600FAEE48 /* Main.storyboard */,
+				7DFBB9282175E72700FAEE48 /* PickUpViewController.swift */,
 				7DFBB91C2173A8BC00FAEE48 /* RiderViewController.swift */,
 				7DFBB91E2173A8D900FAEE48 /* DriverTableViewController.swift */,
 				7DFBB90F2170D98800FAEE48 /* Assets.xcassets */,
@@ -134,6 +137,11 @@
 				TargetAttributes = {
 					7DFBB9042170D98600FAEE48 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -227,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DFBB9292175E72700FAEE48 /* PickUpViewController.swift in Sources */,
 				7DFBB90B2170D98600FAEE48 /* ViewController.swift in Sources */,
 				7DFBB91F2173A8DA00FAEE48 /* DriverTableViewController.swift in Sources */,
 				7DFBB91D2173A8BC00FAEE48 /* RiderViewController.swift in Sources */,

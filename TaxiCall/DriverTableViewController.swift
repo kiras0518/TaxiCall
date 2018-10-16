@@ -9,12 +9,17 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import CoreLocation
 
-class DriverTableViewController: UITableViewController {
+class DriverTableViewController: UITableViewController, CLLocationManagerDelegate {
 
     let reference = Database.database().reference()
-    var riderRequestDic : [String : Any] = [:]
+    //var riderRequestDic : [String : Any] = [:]
     var riderRequests : [DataSnapshot] = []
+    let locationManager = CLLocationManager()
+    var driverLocation = CLLocationCoordinate2D()
+    
+    
     @IBAction func logOut(_ sender: UIBarButtonItem) {
         
         do {
@@ -34,22 +39,76 @@ class DriverTableViewController: UITableViewController {
         super.viewDidLoad()
         
         getRiderData()
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (Timer) in
+            self.tableView.reloadData()
+        }
     }
-
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        driverLocation = (manager.location?.coordinate)!
+        print(driverLocation)
+        
+    }
+    
     // MARK: - Table view data source
     
     func getRiderData(){
         
         reference.child("RiderRequests").observe(DataEventType.childAdded) { (DataSnapshot) in
             //print(DataSnapshot.value)
-            if let riderRequestDic = DataSnapshot.value as? [String : Any] {
-                print(riderRequestDic["email"])
+          
                 self.riderRequests.append(DataSnapshot)
                 DataSnapshot.ref.removeAllObservers()
-            }
-            //print(self.riderRequests)
+                self.tableView.reloadData()
+           
         }
         
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let snapShot = riderRequests[indexPath.row]
+        performSegue(withIdentifier: "pickupSegue", sender: snapShot)
+      
+    }
+    
+    //在跳轉之前 傳遞數據
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "pickupSegue" {
+            
+            let destiantionVC =  segue.destination as! PickUpViewController
+            
+            if let snapShot = sender as? DataSnapshot {
+                
+                if let riderRequestDic = snapShot.value as? [String: Any] {
+                    
+                    if let email = riderRequestDic["email"] as? String {
+                        if let latitude = riderRequestDic["latitude"] as? Double {
+                            if let longitude = riderRequestDic["longitude"] as? Double {
+                                
+                                destiantionVC.riderEmail = email
+                                
+                                let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                                
+                                destiantionVC.riderLocation = location
+                                destiantionVC.driverLocation = driverLocation
+                                
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -59,14 +118,44 @@ class DriverTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 6
+        return riderRequests.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! RiderDataCell
 
-        // Configure the cell...
+        let snapShot = riderRequests[indexPath.row]
+        
+        if let riderRequestDic = snapShot.value as? [String : Any] {
+            
+            if let email = riderRequestDic["email"] as? String {
+                
+                if let latitude = riderRequestDic["latitude"] as? Double {
+                    
+                    if let longitude = riderRequestDic["longitude"] as? Double {
+                        
+                        let riderCLLocation = CLLocation(latitude: latitude, longitude: longitude)
+                        
+                        let driverCLLocation = CLLocation(latitude: driverLocation.latitude, longitude: driverLocation.longitude)
+                        
+                        let distance =  riderCLLocation.distance(from: driverCLLocation) / 1000
+                        let roundeDistance = round(distance * 100 ) / 100
+                        
+                        if let image = UIImage(named: "user") {
+                            
+                            let riderDetails = "\(roundeDistance) km"
+                            
+                            cell.configureCell(profileImage: image, email: email, data: riderDetails)
+                            
+                        }
+                        
+                        
+                    }
+                    
+                }
+            }
+        }
 
         return cell
     }

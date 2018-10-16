@@ -75,6 +75,10 @@ class RiderViewController: UIViewController, MKMapViewDelegate, CLLocationManage
             locationManger.requestAlwaysAuthorization()
         }
         locationManger.startUpdatingLocation()
+        
+        print(locationManger)
+        
+        
     }
     
     
@@ -111,6 +115,8 @@ class RiderViewController: UIViewController, MKMapViewDelegate, CLLocationManage
             annotation.coordinate = cooridnate
             annotation.title = "My Location"
             mapView.addAnnotation(annotation)
+            
+            
             
         }
     }
