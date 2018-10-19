@@ -65,9 +65,20 @@ class DriverTableViewController: UITableViewController, CLLocationManagerDelegat
         reference.child("RiderRequests").observe(DataEventType.childAdded) { (DataSnapshot) in
             //print(DataSnapshot.value)
           
-                self.riderRequests.append(DataSnapshot)
-                DataSnapshot.ref.removeAllObservers()
-                self.tableView.reloadData()
+            if let riderRequestDic = DataSnapshot.value as? [String : Any] {
+                
+                
+                if riderRequestDic["driverLatitude"] != nil {
+                    
+                } else {
+                    
+                    self.riderRequests.append(DataSnapshot)
+                    DataSnapshot.ref.removeAllObservers()
+                    self.tableView.reloadData()
+                    
+                }
+            }
+            
            
         }
         
