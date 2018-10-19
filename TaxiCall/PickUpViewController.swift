@@ -8,16 +8,51 @@
 
 import UIKit
 import MapKit
+import FirebaseDatabase
 
 class PickUpViewController: UIViewController,MKMapViewDelegate {
     
     var riderEmail = ""
     var riderLocation = CLLocationCoordinate2D()
     var driverLocation = CLLocationCoordinate2D()
-
+    let reference = Database.database().reference()
+    
     @IBOutlet weak var mapView: MKMapView!
     
     @IBAction func pickUpRequest(_ sender: UIButton) {
+        
+        reference.child("RiderRequests").queryOrdered(byChild: "email").queryEqual(toValue: riderEmail).observeSingleEvent(of: DataEventType.childAdded) { (DataSnapshot) in
+            
+            DataSnapshot.ref.updateChildValues(["driverLatitude" : self.driverLocation.latitude, "driverLongitude" : self.driverLocation.longitude])
+            
+            let riderCLLocation = CLLocation(latitude: self.riderLocation.latitude, longitude: self.riderLocation.longitude)
+            
+            CLGeocoder().reverseGeocodeLocation(riderCLLocation, completionHandler: { (clplacemarks, error) in
+                
+                if error != nil {
+                    
+                    print(error)
+                    
+                } else {
+                    
+                    if let placemarks = clplacemarks {
+                        
+                        if placemarks.count > 0 {
+                            
+                            let placeMark = MKPlacemark(placemark: placemarks[0])
+                            let mapItem = MKMapItem(placemark: placeMark)
+                            mapItem.name = self.riderEmail
+                            
+                            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+                            
+                        }
+                        
+                    }
+                }
+                
+            })
+        }
+        
     }
     
     
@@ -33,6 +68,7 @@ class PickUpViewController: UIViewController,MKMapViewDelegate {
         annotation.coordinate = riderLocation
         annotation.title = riderEmail
         mapView.addAnnotation(annotation)
+        
     }
 
 }
