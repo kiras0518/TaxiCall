@@ -1,15 +1,15 @@
 # TaxiCall
 
-# Clone Uber practice
-  
-The app implements some of the main features of Uber:
+# 仿製 Uber 功能練習 
+
+應用程序主要功能：
 - Login/Signup page
 - Logout
 - Check rider request (disance, time, location)
 - Get direction to the rider who call an Uber
 - Get position of the driver in real time
   
-The application uses these main elements :  
+應用程序使用：
 - Framework Firebase
 - MapKit
 - Background location updates mode
